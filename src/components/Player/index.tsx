@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { PlayerContext } from '../../contexts/PlayerContext';
 import Image from 'next/image';
 import styles from './styles.module.scss';
@@ -7,9 +7,32 @@ import 'rc-slider/assets/index.css';
 
 export function Player() {
 
-    const { episodeList, currentEpisodeIndex, isPlaying, togglePlay } = useContext(PlayerContext);
+    const audioRef = useRef<HTMLAudioElement>(null);
 
-    const episode = episodeList[currentEpisodeIndex]
+    const {
+        episodeList,
+        currentEpisodeIndex,
+        isPlaying,
+        togglePlay,
+        setPlayingState,
+        playNext,
+        playPrevious,
+        hasPrevious,
+        hasNext
+    } = useContext(PlayerContext);
+
+    const episode = episodeList[currentEpisodeIndex];
+
+    useEffect(() => {
+        if (!audioRef.current) {
+            return;
+        }
+        if (isPlaying) {
+            audioRef.current.play();
+        } else {
+            audioRef.current.pause();
+        }
+    }, [isPlaying])
 
     return (
         <div className={styles.playerContainer}>
@@ -35,8 +58,6 @@ export function Player() {
                 </div>
             )}
 
-
-
             <footer className={!episode ? styles.empty : ''}>
                 <div className={styles.progress}>
                     <span>00:00</span>
@@ -58,7 +79,13 @@ export function Player() {
                 </div>
 
                 {episode && (
-                    <audio src={episode.url} autoPlay />
+                    <audio
+                        src={episode.url}
+                        ref={audioRef}
+                        autoPlay
+                        onPlay={() => setPlayingState(true)}
+                        onPause={() => setPlayingState(false)}
+                    />
 
                 )} {/* NLW05 - aula 04 - 00:55:40 */}
 
@@ -66,7 +93,7 @@ export function Player() {
                     <button type="button" disabled={!episode}>
                         <img src="/shuffle.svg" alt="Embaralhar" />
                     </button>
-                    <button type="button" disabled={!episode}>
+                    <button type="button" onClick={playPrevious} disabled={!episode || !hasPrevious}>
                         <img src="/play-previous.svg" alt="Tocar anterior" />
                     </button>
                     <button type="button" className={styles.playButton} disabled={!episode} onClick={togglePlay}>
@@ -76,7 +103,7 @@ export function Player() {
                                 : <img src="/play.svg" alt="Tocar" />
                         }
                     </button>
-                    <button type="button" disabled={!episode}>
+                    <button type="button" onClick={playNext} disabled={!episode || !hasNext}>
                         <img src="/play-next.svg" alt="Tocar próxima" />
                     </button>
                     <button type="button" disabled={!episode}>
