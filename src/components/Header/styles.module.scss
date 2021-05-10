@@ -5,10 +5,26 @@
     align-items: center;
     padding: 2rem 4rem;
     border-bottom: 1px solid var(--gray-100);
+    
+    @media (max-width: 590px) {
+        height: 4.5rem;
+        padding: 1rem 2.5rem;
+    }
+
+    img {
+        @media (max-width: 590px) {
+            height: 1.75rem;
+        }
+    }
+
     p {
         margin-left: 2rem;
         padding: 0.25rem 0 0.25rem 2rem;
         border-left: 1px solid var(--gray-100);
+
+        @media (max-width: 480px) {
+            display: none;
+        }
     }
     span {
         margin-left: auto;

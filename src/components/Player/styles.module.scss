@@ -9,6 +9,34 @@
     align-items: center;
     justify-content: space-between;
 
+    @media (max-width: 1080px) {
+        height: 110px;
+        width: 100vw;
+        padding: 1.25rem;
+        position: fixed;
+        bottom: 0;
+        display: flex;
+        flex-direction: row;
+        gap: 1.5rem;
+        justify-content: flex-start;
+    }
+    @media (max-width: 480px) {
+        flex-direction: column;
+        height: 145px;
+    }
+
+    .logoPlayingNowRun {
+        @media (max-width: 1080px) {
+            display: none;
+        }
+    }
+
+    .logoPlayingNowEmpty {
+        @media (max-width: 480px) {
+            display: none;
+        }
+    }
+
     header {
         display: flex;
         align-items: center;
@@ -23,6 +51,16 @@
     footer {
         align-self: stretch;
 
+        @media (max-width: 1080px) {
+            width: 63vw;
+            margin: auto;
+        }
+
+        @media (max-width: 480px) {
+            width: 92vw;
+            margin: auto;
+        }
+
         &.empty .progress {
            opacity: 0.5;
         } 
@@ -31,9 +69,34 @@
 
 .currentEpisode {
     text-align: center;
+    transition: ease 0.17s;
+
+    @media (max-width: 1080px) {
+        bottom: 0;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        margin-left: 20px;
+    }
+
+    @media (max-width: 480px) {
+        margin-left: 0px;
+    }
+
+    div:first-child {
+        @media (max-width: 1080px) {
+            display: none !important;
+        }
+    }
 
     img {
         border-radius: 1.5rem;
+        width: 85%;
+        @media (max-width: 1080px) {
+            width: 70px !important;
+            min-width: auto !important;
+            height: 60px !important;
+        }
     }
 
     strong {
@@ -41,6 +104,17 @@
         margin-top: 2rem;
         font: 600 1.25rem Lexend, sans-serif;
         line-height: 1.75rem;
+
+        @media (max-width: 1080px) {
+            font: 400 1rem Lexend, sans-serif;
+            text-align: left;
+            margin-top: 0;
+            max-width: 300px;
+        }
+
+        @media (max-width: 480px) {
+            max-width: 370px;
+        }
     }
 
     span {
@@ -48,6 +122,10 @@
         margin-top: 1rem;
         opacity: 0.6;
         line-height: 1.5rem;
+
+        @media (max-width: 1080px) {
+            display: none;
+        }
     }
 
 }
@@ -64,6 +142,39 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    @media (max-width: 1080px) {
+        width: 4rem;
+        height: 3rem;
+        border-radius: 0.5rem;
+        padding: 10px 0;
+        margin-left: 15px;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    @media (max-width: 480px) {
+        border: none;
+        background: none;
+        padding: 0;
+        margin-left: 0;
+        height: 2rem;
+    }
+
+    strong {
+        @media (max-width: 1080px) {
+            position: absolute;
+            font: 300 0.55rem Lexend, sans-serif;
+            max-width: 80px;
+        }
+
+        @media (max-width: 480px) {
+            max-width: 280px;
+            font-size: 0.875rem;
+        }
+    }
 }
 
 .progress {
@@ -97,11 +208,21 @@
     margin-top: 2.5rem;
     gap: 1.5rem;
 
+    @media (max-width: 1080px) {
+        margin-top: 0.875rem;
+    }
+
     button {
         background: transparent;
         border: 0;
         font-size: 0;
         transition: filter 0.2s;
+
+        img {
+            @media (max-width: 1080px) {
+                height: 1.25rem;
+            }
+        }
 
         &:disabled {
             cursor: default;
@@ -126,6 +247,10 @@
             border-radius: 1rem;
             background: var(--purple-400);
             outline: none;
+
+            @media (max-width: 1080px) {
+                height: 2rem;
+            }
 
             &:hover:not(:disabled) {
                 filter: brightness(0.95);

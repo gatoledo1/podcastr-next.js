@@ -5,6 +5,7 @@
 import { GetStaticProps } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import Head from 'next/head';
 import { api } from '../services/api';
 import { format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
@@ -38,6 +39,11 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
 
   return (
     <div className={styles.homepage}>
+
+      <Head>
+        <title>Home | Podcastr</title>
+      </Head>
+
       <section className={styles.latestEpisodes}>
         <h2>Últimos lançamentos</h2>
 
@@ -46,13 +52,15 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
             latestEpisodes.map((episode, index) => {
               return (
                 <li key={episode.id}>
-                  <Image
-                    src={episode.thumbnail}
-                    alt={episode.title}
-                    width={192}
-                    height={192}
-                    objectFit="cover"
-                  />
+                  <div style={{ width: '6rem' }}>
+                    <Image
+                      src={episode.thumbnail}
+                      alt={episode.title}
+                      width={192}
+                      height={192}
+                      objectFit="cover"
+                    />
+                  </div>
 
                   <div className={styles.episodeDetails}>
                     <Link href={`/episodes/${episode.id}`}>

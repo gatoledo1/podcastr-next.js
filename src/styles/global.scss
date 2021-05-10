@@ -2,6 +2,22 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: #c4d5e6 #eef7ff;
+}
+
+*::-webkit-scrollbar {
+width: 8px;
+}
+.submenuItems::-webkit-scrollbar, .card-news-description::-webkit-scrollbar {
+width: 5px;
+}
+*::-webkit-scrollbar-track {
+background: #e3e0f8;
+}
+*::-webkit-scrollbar-thumb{
+background: #bfb2e4;
+border-radius: 10px;
 }
 
 :root {

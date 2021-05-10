@@ -1,15 +1,15 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { PlayerContext } from '../../contexts/PlayerContext';
 import Image from 'next/image';
 import styles from './styles.module.scss';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import { convertDurationToTimeString } from '../../utils/convertDurationToTimeString';
-import Episode from '../../pages/episodes/[slug]';
 
 export function Player() {
 
     const audioRef = useRef<HTMLAudioElement>(null);
+    const [progress, setProgress] = useState(0);
 
     const {
         episodeList,
@@ -24,8 +24,22 @@ export function Player() {
         playNext,
         playPrevious,
         hasPrevious,
-        hasNext
+        hasNext,
+        clearPlayerState
     } = useContext(PlayerContext);
+
+    function handleSeek(amount: number) {
+        audioRef.current.currentTime = amount;
+        setProgress(amount);
+    }
+
+    function handleEpisodeEnded() {
+        if (hasNext) {
+            playNext()
+        } else {
+            clearPlayerState()
+        }
+    }
 
     const episode = episodeList[currentEpisodeIndex];
 
@@ -38,11 +52,19 @@ export function Player() {
         } else {
             audioRef.current.pause();
         }
-    }, [isPlaying])
+    }, [isPlaying]);
+
+    function setupProgressListener() {
+        audioRef.current.currentTime = 0;
+
+        audioRef.current.addEventListener('timeupdate', () => {
+            setProgress(Math.floor(audioRef.current.currentTime));
+        });
+    }
 
     return (
         <div className={styles.playerContainer}>
-            <header>
+            <header className={episode ? styles.logoPlayingNowRun : styles.logoPlayingNowEmpty}>
                 <img src="/playing.svg" alt="tocando agora" />
                 <strong>Tocando agora</strong>
             </header>
@@ -66,14 +88,17 @@ export function Player() {
 
             <footer className={!episode ? styles.empty : ''}>
                 <div className={styles.progress}>
-                    <span>00:00</span>
+                    <span>{convertDurationToTimeString(progress)}</span>
                     <div className={styles.slider}>
                         {
                             episode ? (
                                 <Slider
+                                    max={episode.duration}
+                                    value={progress}
+                                    onChange={handleSeek}
                                     trackStyle={{ backgroundColor: '#04d361' }}
                                     railStyle={{ backgroundColor: '#9f75ff' }}
-                                    handleStyle={{ borderColor: '#04d361', borderWidth: 4 }}
+                                    handleStyle={{ backgroundColor: '#04d361' }}
                                 />
                             ) : (
                                 <div className={styles.emptySlider} />
@@ -90,8 +115,10 @@ export function Player() {
                         ref={audioRef}
                         loop={isLooping}
                         autoPlay
+                        onEnded={handleEpisodeEnded}
                         onPlay={() => setPlayingState(true)}
                         onPause={() => setPlayingState(false)}
+                        onLoadedMetadata={setupProgressListener}
                     />
 
                 )} {/* NLW05 - aula 04 - 00:55:40 */}

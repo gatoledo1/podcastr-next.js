@@ -1,5 +1,5 @@
 .homepage {
-    padding: 0 4rem;
+    padding: 0 7%;
     height: calc(100vh - 6.5rem);
     overflow-y: scroll;
 
@@ -16,14 +16,26 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 1.5rem;
 
+        @media (max-width: 1180px){
+            grid-template-columns: repeat(1, 1fr);
+        }
+
         li {
             background: var(--white);
             border: 1px solid var(--grey-100);
+            box-shadow: 0 15px 35px -18px #c5c1cf;
             padding: 1.25rem;
             border-radius: 1.5rem;
             position: relative;
             display: flex;
             align-items: center;
+            min-width: 300px;
+
+            div:first-child {
+                @media (max-width: 480px) {
+                    display: none;
+                }
+            }
 
             img {
                 width: 6rem;
@@ -34,6 +46,7 @@
             .episodeDetails {
                 flex: 1;
                 margin-left: 1rem;
+                min-width: 280px;
 
                 a {
                     display: block;
