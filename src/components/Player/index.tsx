@@ -10,6 +10,7 @@ export function Player() {
 
     const audioRef = useRef<HTMLAudioElement>(null);
     const [progress, setProgress] = useState(0);
+    const [downPlayer, setDownPlayer] = useState(false);
 
     const {
         episodeList,
@@ -62,32 +63,40 @@ export function Player() {
         });
     }
 
+    function toggleDownPlayer() {
+        downPlayer ? setDownPlayer(false) : setDownPlayer(true);
+    }
+
     return (
         <div className={styles.playerContainer}>
             <header className={episode ? styles.logoPlayingNowRun : styles.logoPlayingNowEmpty}>
                 <img src="/playing.svg" alt="tocando agora" />
                 <strong>Tocando agora</strong>
             </header>
+            <button type="button" className={styles.downButton}>
+                <input type="checkbox" className={styles.checkbox} onChange={toggleDownPlayer} />
+                <img src="/arrow-down.svg" alt="recolher player" width="20px" className={downPlayer ? styles.rotate : styles.restore} />
+            </button>
 
             { episode ? (
-                <div className={styles.currentEpisode}>
+                <div className={!downPlayer ? styles.currentEpisode : styles.toggleNone}>
                     <Image
                         width={592}
                         height={592}
                         src={episode.thumbnail}
                         objectFit="cover"
                     />
-                    <strong>{episode.title}</strong>
+                    <strong className={!downPlayer ? '' : styles.toggleNone}>{episode.title}</strong>
                     <span>{episode.members}</span>
                 </div>
             ) : (
-                <div className={styles.emptyPlayer}>
+                <div className={!downPlayer ? styles.emptyPlayer : styles.toggleNone}>
                     <strong>Selecione um podcast para ouvir</strong>
                 </div>
             )}
 
             <footer className={!episode ? styles.empty : ''}>
-                <div className={styles.progress}>
+                <div className={!downPlayer ? styles.progress : styles.toggleNone}>
                     <span>{convertDurationToTimeString(progress)}</span>
                     <div className={styles.slider}>
                         {

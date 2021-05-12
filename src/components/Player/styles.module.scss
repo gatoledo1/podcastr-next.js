@@ -1,16 +1,21 @@
+.toggleNone {
+    transition: 0.2s ease;
+    display: none !important;
+}
+
 .playerContainer {
     width: 26.5rem;
-    height: 100vh;
+    min-height: 100vh;
     padding: 3rem 4rem;
-    background: var(--purple-500);
-    color: var(--white);
+    background: var(--player);
+    color: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
 
     @media (max-width: 1080px) {
-        height: 110px;
+        min-height: 110px;
         width: 100vw;
         padding: 1.25rem;
         position: fixed;
@@ -22,7 +27,37 @@
     }
     @media (max-width: 480px) {
         flex-direction: column;
-        height: 145px;
+        max-height: 145px;
+        min-height: auto;
+    }
+
+    .downButton {
+        display: none;
+        transition: 0.15s ease-in;
+
+        .rotate {
+            transform: rotate(180deg);
+        }
+        .restore {
+            transform: rotate(0deg);
+        }
+
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        @media (max-width: 480px) {
+            display: block;
+            position: absolute;
+            right: 18px;
+            background: transparent;
+            border: none;
+            z-index: 0;
+        }
     }
 
     .logoPlayingNowRun {
@@ -113,7 +148,8 @@
         }
 
         @media (max-width: 480px) {
-            max-width: 370px;
+            max-width: 90%;
+            text-align: center;
         }
     }
 
@@ -136,7 +172,7 @@
     border: 2px dashed var(--purple-300);
     border-image-width: 10px;
     border-radius: 1.5rem;
-    background: linear-gradient(145deg, rgba(145, 100, 250, 0.8) 0%, rgba(0,0,0,0) 100%);
+    background: linear-gradient(145deg, var(--purple-400) 0%, rgba(0,0,0,0) 80%);
     padding: 4rem;
     text-align: center;
     display: flex;
@@ -182,6 +218,7 @@
     align-items: center;
     gap: 1rem;
     font-size: 0.875rem;
+    margin-bottom: 0.8rem;
 
     span {
         display: inline-block;
@@ -209,7 +246,7 @@
     gap: 1.5rem;
 
     @media (max-width: 1080px) {
-        margin-top: 0.875rem;
+        margin-top: 0rem;
     }
 
     button {

@@ -3,6 +3,10 @@
     height: calc(100vh - 6.5rem);
     overflow-y: scroll;
 
+    @media (max-width: 1080px) {
+        padding: 0 7% 6rem 7%;
+    }
+
     h2 {
         margin-top: 3rem;
         margin-bottom: 1.5rem;
@@ -23,7 +27,7 @@
         li {
             background: var(--white);
             border: 1px solid var(--grey-100);
-            box-shadow: 0 15px 35px -18px #c5c1cf;
+            box-shadow: 0 15px 35px -18px rgba(77, 74, 85, 0.3);
             padding: 1.25rem;
             border-radius: 1.5rem;
             position: relative;
@@ -125,59 +129,108 @@
 
     table {
         width: 100%;
-    }
 
-    th, td {
-        padding: 0.75rem 1rem;
-        border-bottom: 1px solid var(--gray-100);
-    }
+        thead {
+            @media (max-width: 680px) {
+                display: none;
+            }
+        }
 
-    th {
-        color: var(--gray-200);
-        text-transform: uppercase;
-        font: 500 0.75rem Lexend, sans-serif;
-        text-align: left;
-    }
-
-    td {
-        font-size: 0.875rem;
+        tr {
+            @media (max-width: 680px) {
+                display: grid;
+                position: relative;
+                margin: 15px 0;
+                padding-bottom: 15px;
+                grid-template-columns: 83% 17%;
+                border-bottom: 1px solid var(--gray-100);
+            }
         
-        img {
-            width: 2.5rem;
-            height: 2.5rem;
-            border-radius: 0.5rem;
-        }
-
-        a {
-            color: var(--gray-800);
-            font: 600 1rem Lexend, sans-serif;
-            text-decoration: none;
-            line-height: 1.4rem;
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-
-        button {
-            width: 2rem;
-            height: 2rem;
-            background: var(--white);
-            border: 1px solid var(--gray-100);
-            border-radius: 0.5rem;
-            font-size: 0;
-            transition: 0.2s ease-in;
-
-            img {
-                width: 1.25rem;
-                height: 1.25rem;
+            th {
+                color: var(--gray-200);
+                text-transform: uppercase;
+                font: 500 0.75rem Lexend, sans-serif;
+                text-align: left;
             }
 
-            &:hover {
-                filter: brightness(0.95);
-                transition: 0.2s ease-out;
+            td {
+                font-size: 0.875rem;
+                padding: 0.75rem 1rem;
+                border-bottom: 1px solid var(--gray-100);
+
+                @media (max-width: 680px) {
+                    padding: 0.45rem;
+                    border-bottom: none;
+
+                    &:first-child {
+                        display: none;
+                    }
+
+                    div div {
+                        width: 100px;
+                        height: 80px;
+                    }
+
+                    &:nth-child(4){
+                        bottom: 0;
+                        left: 120px;
+                        grid-area: 5;
+                    }
+
+                    &:nth-child(5){
+                        bottom: 0;
+                        left: 40px;
+                        margin: auto;
+                    }  
+
+                    &:nth-child(6){
+                        grid-area: 1;
+                        grid-column-start: 2;
+                        margin: auto;
+                    }
+                }
+                
+                img {
+                    width: 2.5rem;
+                    height: 2.5rem;
+                    border-radius: 0.5rem;
+                }
+
+                a {
+                    color: var(--gray-800);
+                    font: 600 1rem Lexend, sans-serif;
+                    text-decoration: none;
+                    line-height: 1.4rem;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+
+                button {
+                    width: 2rem;
+                    height: 2rem;
+                    background: var(--white);
+                    border: 1px solid var(--gray-100);
+                    border-radius: 0.5rem;
+                    font-size: 0;
+                    transition: 0.2s ease-in;
+
+                    @media (max-width: 680px) {
+                        width: 3rem;
+                    }
+
+                    img {
+                        width: 1.25rem;
+                        height: 1.25rem;
+                    }
+
+                    &:hover {
+                        filter: brightness(0.95);
+                        transition: 0.2s ease-out;
+                    }
+                }
             }
         }
     }
-
 }

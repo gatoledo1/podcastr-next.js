@@ -13,6 +13,7 @@
         button {
             width: 3rem;
             height: 3rem;
+            top: 4rem;
             border-radius: 0.75rem;
             border: 0;
             position: absolute;
@@ -22,14 +23,12 @@
 
             &:first-child {
                 left: 0;
-                top: 11%;
-                background: var(--purple-500);
+                background: var(--player);
                 transform: translate(-50%, -50%);
             }
 
             &:nth-child(3) {
                 right: 0;
-                top: 11%;
                 background: var(--green-500);
                 transform: translate(50%, -50%);
             }
@@ -78,6 +77,10 @@
         margin-top: 2rem;
         line-height: 1.675rem;
         color: var(--gray-800);
+
+        @media (max-width: 1080px) {
+            margin-bottom: 8rem;
+        }
 
         p {
             margin: 1.5rem 0;
