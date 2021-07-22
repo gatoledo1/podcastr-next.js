@@ -168,7 +168,7 @@ export const getStaticProps: GetStaticProps = async () => {
       latestEpisodes,
       allEpisodes
     },
-    revalidate: 60 * 60 * 8, // gera nova requisição a cada 8h 
+    revalidate: 60 * 20 * 1, // gera nova requisição a cada 20min 
   }
 }
 

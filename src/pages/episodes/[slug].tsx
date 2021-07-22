@@ -113,6 +113,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {  //NLW05 - aula 3
         props: {
             episode,
         },
-        revalidate: 60 * 60 * 24, // gera nova requisição a cada 24h 
+        revalidate: 60 * 40 * 1, // gera nova requisição a cada 40min
     }
 }
