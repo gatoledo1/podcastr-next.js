@@ -16,7 +16,7 @@ import { PlayerContext } from '../contexts/PlayerContext';
 import styles from './home.module.scss';
 
 interface Episodes {
-  id: string,
+  slug: string,
   title: string,
   members: string,
   publishedAt: string,
@@ -51,7 +51,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
           {
             latestEpisodes.map((episode, index) => {
               return (
-                <li key={episode.id}>
+                <li key={episode.slug}>
                   <div style={{ width: '6rem' }}>
                     <Image
                       src={episode.thumbnail}
@@ -63,7 +63,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                   </div>
 
                   <div className={styles.episodeDetails}>
-                    <Link href={`/episodes/${episode.id}`}>
+                    <Link href={`/episodes/${episode.slug}`}>
                       <a>{episode.title}</a>
                     </Link>
                     <p>{episode.members}</p>
@@ -99,7 +99,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
             {
               allEpisodes.map((episode, index) => {
                 return (
-                  <tr key={episode.id}>
+                  <tr key={episode.slug}>
                     <td style={{ width: 72 }}>
                       <Image
                         width={120}
@@ -110,7 +110,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                       />
                     </td>
                     <td>
-                      <Link href={`/episodes/${episode.id}`}>
+                      <Link href={`/episodes/${episode.slug}`}>
                         <a>{episode.title}</a>
                       </Link>
                     </td>
@@ -140,7 +140,7 @@ export const getStaticProps: GetStaticProps = async () => {
     params: {
       _limit: 12,
       _sort: 'published_at',
-      _order: 'desc'
+      //_order: 'desc'
     }
   })
 
@@ -148,7 +148,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const episodes = data.map(episode => {
     return {
-      id: episode.id,
+      slug: episode.slug,
       title: episode.title,
       members: episode.members,
       publishedAt: format(parseISO(episode.published_at), 'd MMM yy', { locale: ptBR }),
