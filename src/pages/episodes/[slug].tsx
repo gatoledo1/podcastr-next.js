@@ -12,7 +12,7 @@ import { convertDurationToTimeString } from "../../utils/convertDurationToTimeSt
 import styles from './episode.module.scss'
 
 interface Episode {
-    id: string,
+    slug: string,
     title: string,
     members: string,
     publishedAt: string,
@@ -73,14 +73,14 @@ export const getStaticPaths: GetStaticPaths = async () => { //NLW05 - aula 4 - 0
         params: {
             _limit: 2,
             _sort: 'published_at',
-            _order: 'desc'
+            // _order: 'desc'
         }
     })
 
     const paths = data.map(episode => {
         return {
             params: {
-                slug: episode.id
+                slug: episode.slug
             }
         }
     })
@@ -97,7 +97,7 @@ export const getStaticProps: GetStaticProps = async (ctx) => {  //NLW05 - aula 3
     const { data } = await api.get(`/episodes/${slug}`)
 
     const episode = {
-        id: data.id,
+        slug: data.slug,
         title: data.title,
         members: data.members,
         publishedAt: format(parseISO(data.published_at), 'd MMM yy', { locale: ptBR }),

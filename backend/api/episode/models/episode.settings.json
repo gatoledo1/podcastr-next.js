@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "episode",
+  "info": {
+    "name": "episode",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "pluginOptions": {}
+    },
+    "slug": {
+      "type": "string",
+      "pluginOptions": {},
+      "unique": false,
+      "required": false
+    },
+    "members": {
+      "type": "string",
+      "pluginOptions": {}
+    },
+    "thumbnail": {
+      "type": "string",
+      "pluginOptions": {}
+    },
+    "description": {
+      "type": "string",
+      "pluginOptions": {}
+    },
+    "file": {
+      "type": "json",
+      "pluginOptions": {}
+    }
+  }
+}
